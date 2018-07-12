@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户退出</title>
+</head>
+<script th:inline="javascript">
+    document.onreadystatechange = loadingChange;//当页面加载状态改变的时候执行这个方法.
+    function loadingChange()
+    {
+        if(document.readyState == "complete"){ //当页面加载状态为完全结束时进入
+           window.location.href=[[@{/}]]+'oauth/clearSession?referer='+[[${referer}]];
+        }
+    }
+
+</script>
+<body onload="">
+<iframe style="display: none;" th:each="item : ${logoutlist}" th:src="${item}"></iframe>
+</body>
+</html>
