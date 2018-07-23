@@ -35,16 +35,16 @@ public class CustomTokenEnhancer implements TokenEnhancer {
         if (accessToken instanceof DefaultOAuth2AccessToken) {
             String grantType = authentication.getOAuth2Request().getGrantType();
 //            生成对应的tyk凭证
-            List<Map<String, Object>> apiList = apiService.getApiListByClientID(authentication.getOAuth2Request().getClientId());
-            if (apiList != null && apiList.size() > 0) {
-                String key = GetwayApi.createKey(apiList);
-                JSONObject jsonObject = JSONUtil.parseObj(key);
-                if (jsonObject != null && "ok".equals(jsonObject.getStr("status"))) {
-                    tokenStr = jsonObject.getStr("key");
-                } else {
-                    throw new RuntimeException(jsonObject.getStr("message"));
-                }
-            }
+//            List<Map<String, Object>> apiList = apiService.getApiListByClientID(authentication.getOAuth2Request().getClientId());
+//            if (apiList != null && apiList.size() > 0) {
+//                String key = GetwayApi.createKey(apiList);
+//                JSONObject jsonObject = JSONUtil.parseObj(key);
+//                if (jsonObject != null && "ok".equals(jsonObject.getStr("status"))) {
+//                    tokenStr = jsonObject.getStr("key");
+//                } else {
+//                    throw new RuntimeException(jsonObject.getStr("message"));
+//                }
+//            }
             if (StringUtils.isBlank(tokenStr)) {
                 tokenStr = getNewToken();
             }

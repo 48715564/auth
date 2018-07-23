@@ -1,5 +1,6 @@
 package com.daocloud.controller;
 
+import cn.hutool.http.HttpUtil;
 import com.daocloud.common.Constant;
 import com.daocloud.common.StringUtils;
 import com.daocloud.entity.User;
@@ -52,31 +53,15 @@ public class LogoutController {
                 Map<String, Object> clientMap = oauthClientDetailsService.getOauthClientByClientId(clientId);
                 String logoutUri = clientMap.get("logout_uri") == null ? "" : clientMap.get("logout_uri").toString();
                 if (StringUtils.isNotBlank(logoutUri)) {
-                    logoutList.add(logoutUri);
+                    Map<String,Object> param = new LinkedHashMap<>();
+                    param.put("clientId",clientId);
+                    param.put("username",user.getUsername());
+                    HttpUtil.get(logoutUri,param);
                 }
             }
-        }
-        modelMap.addAttribute("referer", request.getHeader("referer"));
-        modelMap.addAttribute("logoutlist", logoutList);
-        return "logout";
-    }
-
-    @RequestMapping("/oauth/clearSession")
-    @ResponseBody
-    public void clearSession(HttpServletRequest request, HttpServletResponse response,String referer) throws IOException {
-        WebAuthenticationDetails webAuthenticationDetails = (WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (o instanceof User) {
-            User user = (User) o;
             stringRedisTemplate.delete(Constant.USER_CLIENT + user.getId() + "_" + webAuthenticationDetails.getSessionId());
+            new SecurityContextLogoutHandler().logout(request, null, null);
         }
-        new SecurityContextLogoutHandler().logout(request, null, null);
-        if(StringUtils.isNotBlank(referer)&&!"null".equals(referer)){
-            response.sendRedirect(referer);
-        }else{
-            response.setCharacterEncoding("utf-8");
-            response.setContentType("text/json");
-            response.getWriter().println("{\"success\":true,\"msg\":\"退出成功！\"}");
-        }
+        return "redirect:"+request.getHeader("referer");
     }
 }
