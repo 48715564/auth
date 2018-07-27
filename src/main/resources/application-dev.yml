@@ -1,8 +1,5 @@
 spring:
   datasource:
-    url: jdbc:mysql://10.0.4.60:32005/auth?characterEncoding=UTF-8&useSSL=false
-    username: root
-    password: root
     driver-class-name: com.mysql.jdbc.Driver
     max-idle: 5
     max-wait: 10000
@@ -33,8 +30,6 @@ spring:
     # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
   redis:
-    database: 10
-    host: 10.0.4.60
     password:
     timeout: 3000
     pool:
@@ -42,15 +37,6 @@ spring:
       min-idle: 0
       max-wait: -1
       max-idle: 8
-    port: 32395
-
-oauth:
-  removeTokenCode: daocloud
-  timeOut: 3
 
 server:
   port: 7788
-
-getway:
-  secret: 352d20ee67be67f6340b4c0605b044b7
-  apiUrl: http://10.0.4.60:31568

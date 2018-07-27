@@ -4,6 +4,7 @@ import cn.hutool.http.HttpUtil;
 import com.daocloud.common.Constant;
 import com.daocloud.common.StringUtils;
 import com.daocloud.entity.User;
+import com.daocloud.service.LogoutService;
 import com.daocloud.service.OauthClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,6 +36,8 @@ public class LogoutController {
     @Autowired
     @Qualifier("consumerTokenServices")
     ConsumerTokenServices consumerTokenServices;
+    @Autowired
+    LogoutService logoutService;
 
     @RequestMapping("/oauth/exit")
     public String exit(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
@@ -56,7 +59,7 @@ public class LogoutController {
                     Map<String,Object> param = new LinkedHashMap<>();
                     param.put("clientId",clientId);
                     param.put("username",user.getUsername());
-                    HttpUtil.get(logoutUri,param);
+                    logoutService.sendLogoutUrl(logoutUri,param);
                 }
             }
             stringRedisTemplate.delete(Constant.USER_CLIENT + user.getId() + "_" + webAuthenticationDetails.getSessionId());
@@ -64,4 +67,6 @@ public class LogoutController {
         }
         return "redirect:"+request.getHeader("referer");
     }
+
+
 }

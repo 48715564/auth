@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/test-oauth?characterEncoding=UTF-8&useSSL=false
@@ -66,3 +65,7 @@ thymeleaf:
 logging:
   level:
       root: info
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.0.4.60:31080/eureka/
