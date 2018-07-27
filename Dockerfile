@@ -8,6 +8,8 @@ ADD pom.xml /tmp/build/
 
 ADD src /tmp/build/src
 
+ADD lib /tmp/build/lib
+
 ADD configure.sh /usr/local/bin/
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
