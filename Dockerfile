@@ -16,9 +16,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN mkdir /opt/settings && echo "env=DEV" > /opt/settings/server.properties
 
-RUN cd /tmp/build && mvn initialize
-
-RUN cd /tmp/build && mvn clean package \
+RUN cd /tmp/build && mvn initialize && mvn clean package \
     && mv target/*.jar /app.jar \
     && chmod a+x /usr/local/bin/configure.sh \
     && mkdir -p /assets/pinpoint-agent \
