@@ -1,14 +1,21 @@
-FROM openjdk:8-jdk
+FROM daocloud.io/brave8/maven-jdk8
 
 ENV TZ=Asia/Shanghai
 
 ENV PINPOINT_VERSION=1.6.2
+
+ADD pom.xml /tmp/build/
+
+ADD src /tmp/build/src
 
 ADD configure.sh /usr/local/bin/
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN mkdir /opt/settings && echo "env=DEV" > /opt/settings/server.properties
+
+RUN cd /tmp/build && mvn clean package \
+    && mv target/*.jar /app.jar \
 
 RUN chmod a+x /usr/local/bin/configure.sh \
     && mkdir -p /assets/pinpoint-agent \
@@ -19,8 +26,6 @@ RUN chmod a+x /usr/local/bin/configure.sh \
     && curl -SL https://raw.githubusercontent.com/naver/pinpoint/$PINPOINT_VERSION/agent/src/main/resources-release/lib/log4j.xml -o /assets/pinpoint-agent/lib/log4j.xml \
     && sed -i 's/DEBUG/INFO/' /assets/pinpoint-agent/lib/log4j.xml \
     && rm pinpoint-agent-$PINPOINT_VERSION.tar
-
-COPY auth-0.0.1-SNAPSHOT.jar /auth.jar
 
 EXPOSE 7788
 
