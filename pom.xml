@@ -87,6 +87,8 @@
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-client</artifactId>
             <version>0.11.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/apollo-client-0.11.0-SNAPSHOT.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -110,27 +112,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.3.1</version>
-                <executions>
-                    <execution>
-                        <id>apollo-client</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <packaging>jar</packaging>
-                            <groupId>com.ctrip.framework.apollo</groupId>
-                            <artifactId>apollo-client</artifactId>
-                            <version>0.11.0-SNAPSHOT</version>
-                            <file>lib/apollo-client-0.11.0-SNAPSHOT.jar</file>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
