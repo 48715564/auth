@@ -1,4 +1,4 @@
-FROM daocloud.io/brave8/maven-jdk8
+FROM akagelo/debian-jessie-maven3-java-8
 
 ENV TZ=Asia/Shanghai
 
