@@ -47,15 +47,18 @@ spring:
 oauth:
   removeTokenCode: daocloud
   timeOut: 3
+
 getway:
   secret: 352d20ee67be67f6340b4c0605b044b7
   apiUrl: http://220.194.70.51:30651
+
 server:
   port: 7788
 logging:
   level:
     root: info
+
 eureka:
   client:
-    serviceUrl:
+    service-url:
       defaultZone: http://220.194.70.51:31161/eureka/
