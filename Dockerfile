@@ -43,4 +43,4 @@ RUN cd /tmp/build && mvn clean package \
 
 EXPOSE 7788
 
-ENTRYPOINT ["/usr/local/bin/configure.sh"]
+CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar","--spring.profiles.active=dev"]
