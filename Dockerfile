@@ -18,6 +18,7 @@ RUN mkdir /opt/settings && echo "env=DEV" > /opt/settings/server.properties
 
 RUN cd /tmp/build && mvn clean package \
     && mv target/*.jar /app.jar \
+    && cd / && rm -rf /tmp/build \
     && chmod a+x /usr/local/bin/configure.sh \
     && mkdir -p /assets/pinpoint-agent \
     && curl -SL https://raw.githubusercontent.com/naver/pinpoint/$PINPOINT_VERSION/agent/src/main/resources-release/pinpoint.config -o /assets/pinpoint.config \

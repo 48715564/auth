@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 @SpringBootApplication
 @EnableAuthorizationServer
 @EnableEurekaClient
-@EnableApolloConfig
+//@EnableApolloConfig
 @EnableAsync
 public class AuthApplication implements SchedulingConfigurer {
 
