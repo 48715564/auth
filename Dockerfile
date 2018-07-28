@@ -1,4 +1,4 @@
-FROM akagelo/debian-jessie-maven3-java-8
+FROM n3wtron/maven3-oracle-jdk8
 
 ENV TZ=Asia/Shanghai
 
